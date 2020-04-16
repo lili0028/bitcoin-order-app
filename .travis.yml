@@ -4,26 +4,22 @@ node_js:
 dist: bionic
 sudo: required
 
-notifications:
-  email:
-    recipients:
-      - li.li@ncs.com.sg
-    on_success: always
-    on_failure: always
 branches:
   only:
-   - development
+   - master
 
 before_script:
   - npm install -g @angular/cli
-  - npm install -g now  
-
+  - npm audit fix
+  
 script:
-  - ng build --prod --base-href https://lili0028.github.io/bitcoin-order-app/
+  - ng lint
+  - ng build --prod --base-href https://kenken64.github.io/bitcoin-order-app/
+
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   local_dir: dist/bitcoin
   on: 
-   branch: development
+   branch: master
